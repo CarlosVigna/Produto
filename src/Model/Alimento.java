@@ -1,8 +1,9 @@
 package Model;
 
-public class Alimento extends Produto{
-    private String dataValidade;
+import java.util.Scanner;
 
+public class Alimento extends Produto {
+    private String dataValidade;
 
     public Alimento() {
     }
@@ -24,11 +25,14 @@ public class Alimento extends Produto{
         this.dataValidade = dataValidade;
     }
 
-    public void cadastrarAlimento(){
-        super.cadastrarProduto();
-        System.out.println("Informe a data de validade: ");
+    public void cadastrarAlimento(Scanner teclado) {
+        cadastrarProduto(teclado);
+        System.out.println("Digite a data de validade do alimento: ");
         dataValidade = teclado.nextLine();
-        teclado.nextLine();
     }
 
+    @Override
+    public String detalhesVendidos() {
+        return super.detalhesVendidos() + "\nData de Validade: " + dataValidade;
+    }
 }

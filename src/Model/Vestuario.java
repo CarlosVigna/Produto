@@ -1,8 +1,10 @@
 package Model;
+import Java.util;
 
-public class Vestuario extends Produto{
+public class Vestuario extends Produto {
     private String tamanho;
 
+    Scanner teclado = new Scanner(System.in);
     public Vestuario() {
     }
 
@@ -15,10 +17,22 @@ public class Vestuario extends Produto{
         this.tamanho = tamanho;
     }
 
-    public void cadastrarVestuario(){
+    public String getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    public void cadastrarVestuario() {
         super.cadastrarProduto();
-        System.out.println("Informe o tamanho: ");
+        System.out.println("Digite o tamanho do vestuário: ");
         tamanho = teclado.nextLine();
-        teclado.nextLine();
+    }
+
+    @Override
+    public String detalhesVendidos() {
+        return super.detalhesVendidos() + "\nTamanho: " + tamanho;
     }
 }

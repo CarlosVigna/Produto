@@ -47,14 +47,13 @@ public class Controlador {
                 switch (escolha) {
                     case CADASTRAR_ALIMENTO:
                         alimento = new Alimento();
-                        alimento.cadastrarAlimento();
-                        teclado.nextLine();
+                        alimento.cadastrarAlimento(teclado);
                         ListaDeAlimentos.add(alimento);
                         System.out.println("Alimento cadastrado com sucesso!");
                         break;
                     case CADASTRAR_VESTUARIO:
                         vestuario = new Vestuario();
-                        vestuario.cadastrarVestuario();
+                        vestuario.cadastrarVestuario(teclado);
                         ListaDeVestuarios.add(vestuario);
                         System.out.println("Vestuário cadastrado com sucesso!");
                         break;
@@ -87,15 +86,13 @@ public class Controlador {
                     case ALIMENTOS_VENDIDOS:
                         System.out.println("Segue abaixo a listagem de Alimentos vendidos:");
                         for (Alimento alimentosVendidos : ListaDeAlimentosVendidos) {
-                            System.out.println("Código: " + alimentosVendidos.getCodigo() +
-                                    "\nNome: " + alimentosVendidos.getDescricao() +
-                                    "\n Quantidade vendida" + alimentosVendidos.getQuantidade());
+                            System.out.println(alimentosVendidos.detalhesVendidos());
                         }
                         break;
                     case VESTUARIOS_VENDIDOS:
                         System.out.println("Segue abaixo a listagem de Roupas vendidas:");
                         for (Vestuario vestuariosVendidos : ListaDeVestuariosVendidos) {
-                            System.out.println(vestuariosVendidos);
+                            System.out.println(vestuariosVendidos.detalhesVendidos());
                         }
                         break;
                     case SAIR:
@@ -131,6 +128,7 @@ public class Controlador {
 
         if (alimentoSelecionado.getQuantidade() >= quantidadeEscolhida) {
             alimentoSelecionado.baixarEstoque(quantidadeEscolhida);
+            alimentoSelecionado.setQuantidadeVendida(alimentoSelecionado.getQuantidadeVendida() + quantidadeEscolhida);
             ListaDeAlimentosVendidos.add(alimentoSelecionado); // Adiciona na lista de vendidos
             System.out.println("Venda realizada com sucesso!");
         } else {
@@ -158,6 +156,7 @@ public class Controlador {
 
         if (vestuarioSelecionado.getQuantidade() >= quantidadeEscolhida) {
             vestuarioSelecionado.baixarEstoque(quantidadeEscolhida);
+            vestuarioSelecionado.setQuantidadeVendida(vestuarioSelecionado.getQuantidadeVendida() + quantidadeEscolhida);
             ListaDeVestuariosVendidos.add(vestuarioSelecionado); // Adiciona na lista de vendidos
             System.out.println("Venda realizada com sucesso!");
         } else {

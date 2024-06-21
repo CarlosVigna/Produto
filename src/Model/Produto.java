@@ -6,7 +6,7 @@ public class Produto {
     private int codigo;
     private String descricao;
     private int quantidade;
-    Scanner teclado = new Scanner(System.in);
+    private int quantidadeVendida;
 
     public Produto() {
     }
@@ -15,7 +15,7 @@ public class Produto {
         this.codigo = codigo;
         this.descricao = descricao;
         this.quantidade = quantidade;
-
+        this.quantidadeVendida = 0;
     }
 
     public int getCodigo() {
@@ -42,34 +42,32 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public void cadastrarProduto() {
-        try {
-            System.out.println("Informe o código do produto: ");
-            codigo = teclado.nextInt();
-            System.out.println("Informe a descrição do produto: ");
-            descricao = teclado.next();
-            System.out.println("Informe a quantidade do produto: ");
-            quantidade = teclado.nextInt();
-        } catch (Exception e) {
-            System.out.println("Informação inválida, informe novamente!!");
-            teclado.nextLine(); // Clear the buffer
+    public int getQuantidadeVendida() {
+        return quantidadeVendida;
+    }
+
+    public void setQuantidadeVendida(int quantidadeVendida) {
+        this.quantidadeVendida = quantidadeVendida;
+    }
+
+    public void cadastrarProduto(Scanner teclado) {
+        System.out.println("Digite o código do produto: ");
+        codigo = teclado.nextInt();
+        teclado.nextLine(); // consumir o \n deixado pelo nextInt()
+        System.out.println("Digite a descrição do produto: ");
+        descricao = teclado.nextLine();
+        System.out.println("Digite a quantidade do produto: ");
+        quantidade = teclado.nextInt();
+        teclado.nextLine(); // consumir o \n deixado pelo nextInt()
+    }
+
+    public void baixarEstoque(int quantidadeVendida) {
+        if (quantidade >= quantidadeVendida) {
+            quantidade -= quantidadeVendida;
         }
     }
 
-    public void entradaEstoque(int quantidade){
-        this.quantidade += quantidade;
-    }
-
-    public void baixarEstoque(int quantidadeEscolhida){
-        if (quantidadeEscolhida <= this.quantidade) {
-            this.quantidade -= quantidadeEscolhida;
-        } else {
-            System.out.println("Quantidade em estoque insuficiente.");
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Código: " + codigo + ", Descrição: " + descricao + ", Quantidade: " + quantidade;
+    public String detalhesVendidos() {
+        return "Código: " + codigo + "\nDescrição: " + descricao + "\nQuantidade Vendida: " + quantidadeVendida;
     }
 }
